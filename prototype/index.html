@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ThinkPad — prévia do desbloqueio</title>
+<link rel="stylesheet" href="style.css">
+<body>
+<header><span>SIMULAÇÃO LOCAL</span><p>Prévia do carrossel · nenhuma autenticação real</p></header>
+<main>
+  <section class="dialog" aria-label="Prévia de autenticação">
+    <div class="carousel" aria-label="Etapas: senha, depois impressão digital">
+      <div class="card avatar" aria-label="Etapa da senha">
+        <svg viewBox="0 0 96 96" role="img" aria-label="Avatar padrão do usuário"><circle cx="48" cy="48" r="46" fill="#6d5468"/><circle cx="48" cy="36" r="15" fill="#eee5ec"/><path d="M20 79c2-24 54-24 56 0" fill="#eee5ec"/></svg>
+        <span>Senha</span>
+      </div>
+      <div class="card fingerprint" aria-label="Etapa da impressão digital">
+        <svg viewBox="0 0 96 96" role="img" aria-label="Impressão digital" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M20 40C20 5 76 5 76 40M13 40c0-46 70-46 70 0M28 40c0-24 40-24 40 0v15c0 15-5 23-10 29M36 40c0-13 24-13 24 0v13c0 15-5 20-9 25M44 40c0-3 8-3 8 0v10c0 16-5 20-9 27M20 47v8c0 10-2 17-6 22M28 48v9c0 12-2 20-6 26M36 47v11c0 14-2 24-5 30M76 48v10c0 13-3 24-6 29"/></svg>
+        <span>Digital</span>
+      </div>
+    </div>
+    <h1>vinicius</h1>
+    <p id="instruction" role="status" aria-live="polite">Digite sua senha</p>
+    <div id="password-row"><input aria-label="Senha fictícia da simulação" type="password" value="simulacao" readonly><span>↵</span></div>
+    <div id="waiting" hidden><span class="spinner"></span><span>Aguardando o leitor</span></div>
+    <p id="result" aria-live="polite"></p>
+    <button id="cancel" class="cancel">Cancelar tentativa</button>
+  </section>
+  <aside aria-label="Controles da simulação">
+    <h2>Experimentar o fluxo</h2>
+    <button data-action="password-ok">Simular senha aceita</button>
+    <button data-action="password-fail">Simular senha incorreta</button>
+    <button data-action="finger-ok">Simular digital aceita</button>
+    <button data-action="finger-fail">Simular digital incorreta</button>
+    <button data-action="timeout">Simular tempo esgotado</button>
+    <button data-action="reset">Recomeçar</button>
+    <p>Na versão real, PAM verifica a senha e o leitor verifica a digital. A animação apenas acompanha essas etapas.</p>
+  </aside>
+</main>
+<script type="module" src="preview.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+GNOME Auth Carousel: GPL-2.0-or-later for new integration code.
+GNOME Shell is a derivative of GNOME Shell 46.0 packaged by Ubuntu.
+Upstream copyright and licenses remain in the corresponding source's
+COPYING and debian/copyright. Debian packaging retains its upstream licenses.
+Binary releases include the full corresponding patched GNOME Shell source.
+Names thinkpad-* in internal paths identify the original integration and are
+retained for compatibility; the target local username is configurable.

@@ -1,0 +1,17 @@
+[
+  {
+    "set": "packages",
+    "file": "gnome-shell_46.0-0ubuntu6~24.04.14+thinkpad1_amd64.deb",
+    "sha256": "5be3f0e2fcc2055535692f48bf1830ad225c027a9cae72bc3bc37b6cd92c9b01"
+  },
+  {
+    "set": "packages",
+    "file": "gnome-shell-common_46.0-0ubuntu6~24.04.14+thinkpad1_all.deb",
+    "sha256": "74e8d88ac1cdaf3becbf1bbea8233b2252ba3e05b9618112fcbe10ebcdd07296"
+  },
+  {
+    "set": "packages",
+    "file": "thinkpad-auth-policy_1.1_all.deb",
+    "sha256": "fa182d74bfac6fe653c9d90982cc639be3c17f9f00acdc5f1c693b50601541a3"
+  }
+]
