@@ -1,0 +1,40 @@
+# Dutch translation for gnome-auth-carousel.
+# This file is distributed under the same license as the gnome-auth-carousel package.
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-auth-carousel 1.1.0\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Fingerprint"
+msgstr "Vingerafdruk"
+
+msgid "Place your index finger on the fingerprint reader"
+msgstr "Leg uw wijsvinger op de vingerafdruklezer"
+
+msgid "Fingerprint not recognized. Place your index finger again."
+msgstr "Vingerafdruk niet herkend. Leg uw wijsvinger opnieuw neer."
+
+msgid "Connect your Trezor and confirm on the device"
+msgstr "Sluit uw Trezor aan en bevestig op het apparaat"
+
+msgid "Trezor not confirmed. Try again."
+msgstr "Trezor niet bevestigd. Probeer het opnieuw."
+
+msgid "Enter your password"
+msgstr "Voer uw wachtwoord in"
+
+msgid "Password"
+msgstr "Wachtwoord"
+
+msgid "Too many attempts. Enter your password again."
+msgstr "Te veel pogingen. Voer uw wachtwoord opnieuw in."
+
+msgid "Try again. Enter your password."
+msgstr "Probeer het opnieuw. Voer uw wachtwoord in."
+
+msgid "Authentication complete"
+msgstr "Authenticatie voltooid"

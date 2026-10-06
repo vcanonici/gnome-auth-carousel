@@ -5,3 +5,6 @@ COPYING and debian/copyright. Debian packaging retains its upstream licenses.
 Binary releases include the full corresponding patched GNOME Shell source.
 Names thinkpad-* in internal paths identify the original integration and are
 retained for compatibility; the target local username is configurable.
+Trezor is a trademark of SatoshiLabs; this project is not affiliated with it.
+assets/trezor-symbolic.svg is an original generic device silhouette drawn for
+this project (GPL-2.0-or-later), not the Trezor logo.

@@ -1,0 +1,40 @@
+# Portuguese (Brazil) translation for gnome-auth-carousel.
+# This file is distributed under the same license as the gnome-auth-carousel package.
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-auth-carousel 1.1.0\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Fingerprint"
+msgstr "Digital"
+
+msgid "Place your index finger on the fingerprint reader"
+msgstr "Coloque o indicador no leitor de impressão digital"
+
+msgid "Fingerprint not recognized. Place your index finger again."
+msgstr "Digital não reconhecida. Coloque o indicador novamente."
+
+msgid "Connect your Trezor and confirm on the device"
+msgstr "Conecte seu Trezor e confirme no dispositivo"
+
+msgid "Trezor not confirmed. Try again."
+msgstr "Trezor não confirmado. Tente novamente."
+
+msgid "Enter your password"
+msgstr "Digite sua senha"
+
+msgid "Password"
+msgstr "Senha"
+
+msgid "Too many attempts. Enter your password again."
+msgstr "Limite de tentativas. Digite sua senha novamente."
+
+msgid "Try again. Enter your password."
+msgstr "Tente novamente. Digite sua senha."
+
+msgid "Authentication complete"
+msgstr "Autenticação concluída"

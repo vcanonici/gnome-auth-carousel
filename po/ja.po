@@ -1,0 +1,40 @@
+# Japanese translation for gnome-auth-carousel.
+# This file is distributed under the same license as the gnome-auth-carousel package.
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-auth-carousel 1.1.0\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Fingerprint"
+msgstr "指紋"
+
+msgid "Place your index finger on the fingerprint reader"
+msgstr "人差し指を指紋リーダーに置いてください"
+
+msgid "Fingerprint not recognized. Place your index finger again."
+msgstr "指紋を認識できませんでした。もう一度人差し指を置いてください。"
+
+msgid "Connect your Trezor and confirm on the device"
+msgstr "Trezor を接続し、デバイス上で確認してください"
+
+msgid "Trezor not confirmed. Try again."
+msgstr "Trezor で確認されませんでした。もう一度お試しください。"
+
+msgid "Enter your password"
+msgstr "パスワードを入力してください"
+
+msgid "Password"
+msgstr "パスワード"
+
+msgid "Too many attempts. Enter your password again."
+msgstr "試行回数が多すぎます。もう一度パスワードを入力してください。"
+
+msgid "Try again. Enter your password."
+msgstr "もう一度お試しください。パスワードを入力してください。"
+
+msgid "Authentication complete"
+msgstr "認証が完了しました"

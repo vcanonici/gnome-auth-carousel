@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gnome-auth-carousel package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-auth-carousel 1.1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/vcanonici/gnome-auth-carousel/"
+"issues\n"
+"POT-Creation-Date: 2026-10-06 08:48+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: state.js:13
+msgid "Fingerprint"
+msgstr ""
+
+#: state.js:14
+msgid "Place your index finger on the fingerprint reader"
+msgstr ""
+
+#: state.js:15
+msgid "Fingerprint not recognized. Place your index finger again."
+msgstr ""
+
+#: state.js:21
+msgid "Connect your Trezor and confirm on the device"
+msgstr ""
+
+#: state.js:22
+msgid "Trezor not confirmed. Try again."
+msgstr ""
+
+#: state.js:27
+msgid "Enter your password"
+msgstr ""
+
+#: state.js:28
+msgid "Password"
+msgstr ""
+
+#: state.js:29
+msgid "Too many attempts. Enter your password again."
+msgstr ""
+
+#: state.js:30
+msgid "Try again. Enter your password."
+msgstr ""
+
+#: state.js:31
+msgid "Authentication complete"
+msgstr ""

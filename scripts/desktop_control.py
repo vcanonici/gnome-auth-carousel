@@ -13,7 +13,7 @@ import tempfile
 import sys
 import time
 
-VERSION = '46.0-0ubuntu6~24.04.14+thinkpad1'
+VERSION = '46.0-0ubuntu6~24.04.14+thinkpad2'
 UNIT = 'thinkpad-carousel-rollback'
 CONFIG = Path('/etc/security/thinkpad-auth')
 BASE = Path('/var/backups/thinkpad-auth')
@@ -61,6 +61,8 @@ def main():
     p.add_argument('backup', type=Path)
     p.add_argument('--original-packages', type=Path)
     p.add_argument('--user', required=False)
+    p.add_argument('--factor', choices=('fingerprint', 'trezor'), default='fingerprint')
+    p.add_argument('--host')
     a = p.parse_args()
     if os.geteuid() != 0:
         p.error('Exige root.')
@@ -83,7 +85,7 @@ def main():
             from policy import files
             if not a.user:
                 p.error('Snapshot exige --user.')
-            payload = files('/etc/pam.d', a.user)
+            payload = files('/etc/pam.d', a.user, a.factor, a.host)
             manifest = {'files': {}, 'packages': {}, 'directory_mode':
                         stat.S_IMODE(CONFIG.stat().st_mode) if CONFIG.exists() else None}
             for i, name in enumerate(payload):

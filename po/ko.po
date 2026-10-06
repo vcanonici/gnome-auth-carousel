@@ -1,0 +1,40 @@
+# Korean translation for gnome-auth-carousel.
+# This file is distributed under the same license as the gnome-auth-carousel package.
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-auth-carousel 1.1.0\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Fingerprint"
+msgstr "지문"
+
+msgid "Place your index finger on the fingerprint reader"
+msgstr "검지를 지문 인식기에 올려 주세요"
+
+msgid "Fingerprint not recognized. Place your index finger again."
+msgstr "지문을 인식하지 못했습니다. 검지를 다시 올려 주세요."
+
+msgid "Connect your Trezor and confirm on the device"
+msgstr "Trezor를 연결하고 기기에서 확인해 주세요"
+
+msgid "Trezor not confirmed. Try again."
+msgstr "Trezor에서 확인되지 않았습니다. 다시 시도해 주세요."
+
+msgid "Enter your password"
+msgstr "비밀번호를 입력하세요"
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "Too many attempts. Enter your password again."
+msgstr "시도 횟수가 너무 많습니다. 비밀번호를 다시 입력하세요."
+
+msgid "Try again. Enter your password."
+msgstr "다시 시도해 주세요. 비밀번호를 입력하세요."
+
+msgid "Authentication complete"
+msgstr "인증이 완료되었습니다"

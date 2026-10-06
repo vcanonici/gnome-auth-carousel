@@ -1,0 +1,6 @@
+{
+  "uuid": "carousel-smoke@e2e",
+  "name": "Carousel smoke test (e2e container only)",
+  "description": "Builds the compiled carousel and screenshots both stages.",
+  "shell-version": ["46"]
+}
