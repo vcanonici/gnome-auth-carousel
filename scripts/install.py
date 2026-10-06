@@ -7,12 +7,14 @@ import json
 import os
 from pathlib import Path
 import pwd
+import socket
+import stat
 import subprocess
 import sys
 
 HERE = Path(__file__).resolve().parent
 BASE_VERSION = '46.0-0ubuntu6~24.04.14'
-CUSTOM_VERSION = BASE_VERSION + '+thinkpad1'
+CUSTOM_VERSION = BASE_VERSION + '+thinkpad2'
 BASE = Path('/var/backups/thinkpad-auth')
 CONTROL = '/usr/local/sbin/thinkpad-carousel-control'
 LIB = Path('/usr/local/lib/thinkpad-auth')
@@ -26,8 +28,38 @@ def installed(pkg):
     return run(['dpkg-query', '-W', '-f=${Version}', pkg])
 
 
-def preflight(username):
-    from policy import files
+def check_u2f_authfile(path, username):
+    """Require a root-owned, non-writable pam_u2f mapping with a credential for username."""
+    path = Path(path)
+    try:
+        info = path.lstat()
+    except FileNotFoundError:
+        info = None
+    if info is None or not stat.S_ISREG(info.st_mode):
+        raise ValueError(f'Registre o Trezor antes: {path} ausente ou nao regular (veja README, pamu2fcfg).')
+    if info.st_uid != 0 or info.st_mode & (stat.S_IWGRP | stat.S_IWOTH):
+        raise ValueError(f'{path} deve ser root e nao gravavel por grupo/outros.')
+    for line in path.read_text().splitlines():
+        user, _, credentials = line.partition(':')
+        if user == username and credentials.strip():
+            return
+    raise ValueError(f'Nenhuma credencial Trezor de {username} em {path}.')
+
+
+def check_fingerprint(username):
+    import dbus
+    bus = dbus.SystemBus()
+    manager = dbus.Interface(bus.get_object('net.reactivated.Fprint', '/net/reactivated/Fprint/Manager'),
+                             'net.reactivated.Fprint.Manager')
+    device = dbus.Interface(bus.get_object('net.reactivated.Fprint', manager.GetDefaultDevice()),
+                            'net.reactivated.Fprint.Device')
+    enrolled = [str(x) for x in device.ListEnrolledFingers(username)]
+    if not any('index-finger' in x for x in enrolled):
+        raise ValueError('A primeira interface pede indicador: cadastre indicador esquerdo ou direito antes de instalar.')
+
+
+def preflight(username, factor, host):
+    from policy import files, U2F_AUTHFILE
     account = pwd.getpwnam(username)
     if not any(row.startswith(username + ':') for row in Path('/etc/passwd').read_text().splitlines()):
         raise ValueError('Exige conta local presente em /etc/passwd.')
@@ -39,7 +71,8 @@ def preflight(username):
     for pkg in ('gnome-shell', 'gnome-shell-common'):
         if installed(pkg) != BASE_VERSION:
             raise ValueError('Versao original exata exigida: ' + BASE_VERSION)
-    for pkg in ('gdm3', 'libpam-fprintd', 'python3-dbus'):
+    factor_pkg = 'libpam-fprintd' if factor == 'fingerprint' else 'libpam-u2f'
+    for pkg in ('gdm3', factor_pkg, 'python3-dbus'):
         if run(['dpkg-query', '-W', '-f=${Status}', pkg]) != 'install ok installed':
             raise ValueError('Dependencia ausente: ' + pkg)
     if run(['systemctl', 'is-active', 'gdm3.service']) != 'active':
@@ -59,16 +92,11 @@ def preflight(username):
         hashed = next((row.split(':', 2)[1] for row in shadow if row.startswith(username + ':')), '')
     if not hashed or hashed.startswith(('!', '*')):
         raise ValueError('A conta alvo precisa ter senha local ativa.')
-    files('/etc/pam.d', username)  # validates account and all targeted PAM anchors
-    import dbus
-    bus = dbus.SystemBus()
-    manager = dbus.Interface(bus.get_object('net.reactivated.Fprint', '/net/reactivated/Fprint/Manager'),
-                             'net.reactivated.Fprint.Manager')
-    device = dbus.Interface(bus.get_object('net.reactivated.Fprint', manager.GetDefaultDevice()),
-                            'net.reactivated.Fprint.Device')
-    enrolled = [str(x) for x in device.ListEnrolledFingers(username)]
-    if not any('index-finger' in x for x in enrolled):
-        raise ValueError('A primeira interface pede indicador: cadastre indicador esquerdo ou direito antes de instalar.')
+    files('/etc/pam.d', username, factor, host)  # validates account and all targeted PAM anchors
+    if factor == 'fingerprint':
+        check_fingerprint(username)
+    else:
+        check_u2f_authfile(U2F_AUTHFILE, username)
     # Keep recovery separate from a modified desktop, and avoid overwriting other deployments.
     destinations = [Path(CONTROL)] + [LIB / x for x in ('policy.py', 'stage_payload.py', 'pilot.py', 'recovery_console.py')]
     if any(x.exists() or x.is_symlink() for x in destinations):
@@ -78,7 +106,7 @@ def preflight(username):
 
 def verify_packages(directory, manifest):
     rows = json.loads(manifest.read_text())
-    expected = {'gnome-shell': CUSTOM_VERSION, 'gnome-shell-common': CUSTOM_VERSION, 'thinkpad-auth-policy': '1.1'}
+    expected = {'gnome-shell': CUSTOM_VERSION, 'gnome-shell-common': CUSTOM_VERSION, 'thinkpad-auth-policy': '1.2'}
     for row in rows:
         name = row['file']
         if Path(name).name != name or row.get('set') != 'packages':
@@ -119,6 +147,10 @@ def main():
     sub = p.add_subparsers(dest='action', required=True)
     prepare = sub.add_parser('prepare', help='Verifica e cria backup, sem ativar nem encerrar sessao')
     prepare.add_argument('--user', required=True)
+    prepare.add_argument('--factor', choices=('fingerprint', 'trezor'), default='fingerprint',
+                         help='Segundo fator apos a senha (padrao: fingerprint)')
+    prepare.add_argument('--host', default=socket.gethostname().lower(),
+                         help='Origem FIDO pam://HOST usada no registro do Trezor (padrao: hostname)')
     prepare.add_argument('--packages', type=Path, required=True)
     prepare.add_argument('--manifest', type=Path, required=True)
     prepare.add_argument('--original-packages', type=Path, required=True)
@@ -135,7 +167,7 @@ def main():
         p.error('Execute com sudo; nao envie senha ao programa pela linha de comando.')
     if a.action == 'prepare':
         assert_package_manager_idle()
-        account = preflight(a.user)
+        account = preflight(a.user, a.factor, a.host)
         verify_packages(a.packages, a.manifest)
         # Validate all rollback packages before installing any privileged helper.
         packages = ['gnome-shell', 'gnome-shell-common']
@@ -166,11 +198,12 @@ def main():
                                        ('policy.py', 'stage_payload.py', 'pilot.py', 'recovery_console.py')]:
             subprocess.run(['install', '-o', 'root', '-g', 'root', '-m', '0755' if filename == 'desktop_control.py' else '0644',
                             str(HERE / filename), destination], check=True)
-        subprocess.run([CONTROL, 'snapshot', str(root), '--user', a.user,
+        subprocess.run([CONTROL, 'snapshot', str(root), '--user', a.user, '--factor', a.factor, '--host', a.host,
                         '--original-packages', str(a.original_packages.resolve())], check=True)
         subprocess.run([sys.executable, str(LIB / 'stage_payload.py'), str(root),
                         str(a.packages.resolve()), str(a.manifest.resolve())], check=True)
-        (root / 'target.json').write_text(json.dumps({'username': a.user, 'uid': account.pw_uid}))
+        (root / 'target.json').write_text(json.dumps({'username': a.user, 'uid': account.pw_uid,
+                                                      'factor': a.factor, 'host': a.host}))
         (root / 'target.json').chmod(0o600)
         print('PREPARADO_SEM_ATIVAR ' + str(root))
         return

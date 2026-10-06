@@ -40,7 +40,7 @@ def patch(root):
         this.emit(`service-request::${serviceName}`);
         if (serviceName === PASSWORD_SERVICE_NAME && ThinkpadAuth.enabledFor(this._userName)) {
             const marker = info.trim();
-            if (marker === ThinkpadAuth.PASSWORD || marker === ThinkpadAuth.FINGERPRINT) {
+            if (ThinkpadAuth.isMarker(marker)) {
                 this._thinkpadActive = true;
                 this.emit('thinkpad-step', marker);
                 return;
@@ -61,7 +61,8 @@ def patch(root):
     p = replace_once(p, "        this._userVerifier.connect('ask-question', this._onAskQuestion.bind(this));", "        this._userVerifier.connect('thinkpad-step', this._onThinkpadStep.bind(this));\n        this._userVerifier.connect('ask-question', this._onAskQuestion.bind(this));")
     p = replace_once(p, '    _onAskQuestion(verifier, serviceName, question, secret) {', '''    _onThinkpadStep(_verifier, marker) {
         this._thinkpadCarousel?.marker(marker);
-        if (marker === ThinkpadAuth.FINGERPRINT) {
+        if (marker !== ThinkpadAuth.PASSWORD) {
+            // Second factor: the password entry stays hidden until PAM restarts.
             this._entry.text = '';
             this._entry.visible = false;
             this._capsLockWarningLabel.visible = false;
@@ -90,15 +91,17 @@ def patch(root):
     resource.write_text(r)
     shutil.copyfile(HERE / 'thinkpadAuth.js', root / 'js/gdm/thinkpadAuth.js')
     shutil.copyfile(HERE / 'state.js', root / 'js/gdm/thinkpadAuthState.js')
-    changelog.write_text('''gnome-shell (46.0-0ubuntu6~24.04.14+thinkpad1) noble; urgency=medium
+    changelog.write_text('''gnome-shell (46.0-0ubuntu6~24.04.14+thinkpad2) noble; urgency=medium
 
-  * Add sequential password/fingerprint carousel; keep PAM authoritative.
+  * Add sequential password/second-factor carousel; keep PAM authoritative.
+  * Second factor selectable: fingerprint (fprintd) or Trezor (pam_u2f).
+  * Translate carousel texts through the gnome-auth-carousel gettext domain.
   * Correct cached fingerprint proxy and avoid parallel conversation.
 
- -- ThinkPad Maintenance <root@localhost>  Mon, 05 Oct 2026 01:00:00 +0000
+ -- ThinkPad Maintenance <root@localhost>  Tue, 06 Oct 2026 12:00:00 +0000
 
 ''' + previous)
-    print('FONTE_PATCH_APLICADO 46.0-0ubuntu6~24.04.14+thinkpad1')
+    print('FONTE_PATCH_APLICADO 46.0-0ubuntu6~24.04.14+thinkpad2')
 
 
 if __name__ == '__main__':

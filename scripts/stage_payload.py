@@ -15,8 +15,8 @@ a = p.parse_args()
 r = a.backup.resolve(strict=True)
 if os.geteuid() != 0 or not r.is_relative_to('/var/backups/thinkpad-auth') or not (r / 'carousel.json').is_file():
     p.error('Exige root e snapshot valido.')
-expected = {'gnome-shell': '46.0-0ubuntu6~24.04.14+thinkpad1',
-            'gnome-shell-common': '46.0-0ubuntu6~24.04.14+thinkpad1', 'thinkpad-auth-policy': '1.1'}
+expected = {'gnome-shell': '46.0-0ubuntu6~24.04.14+thinkpad2',
+            'gnome-shell-common': '46.0-0ubuntu6~24.04.14+thinkpad2', 'thinkpad-auth-policy': '1.2'}
 verified = []
 for row in json.loads(a.manifest.read_text()):
     name = row['file']

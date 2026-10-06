@@ -11,8 +11,8 @@ p.add_argument('directory', type=Path)
 p.add_argument('output', type=Path)
 a = p.parse_args()
 rows = []
-expected = {'gnome-shell': '46.0-0ubuntu6~24.04.14+thinkpad1',
-            'gnome-shell-common': '46.0-0ubuntu6~24.04.14+thinkpad1', 'thinkpad-auth-policy': '1.1'}
+expected = {'gnome-shell': '46.0-0ubuntu6~24.04.14+thinkpad2',
+            'gnome-shell-common': '46.0-0ubuntu6~24.04.14+thinkpad2', 'thinkpad-auth-policy': '1.2'}
 for package, version in expected.items():
     found = []
     for path in a.directory.glob(package + '_*.deb'):

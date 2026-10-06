@@ -1,0 +1,40 @@
+# Turkish translation for gnome-auth-carousel.
+# This file is distributed under the same license as the gnome-auth-carousel package.
+msgid ""
+msgstr ""
+"Project-Id-Version: gnome-auth-carousel 1.1.0\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Fingerprint"
+msgstr "Parmak izi"
+
+msgid "Place your index finger on the fingerprint reader"
+msgstr "İşaret parmağınızı parmak izi okuyucuya yerleştirin"
+
+msgid "Fingerprint not recognized. Place your index finger again."
+msgstr "Parmak izi tanınmadı. İşaret parmağınızı yeniden yerleştirin."
+
+msgid "Connect your Trezor and confirm on the device"
+msgstr "Trezor cihazınızı bağlayın ve cihaz üzerinde onaylayın"
+
+msgid "Trezor not confirmed. Try again."
+msgstr "Trezor onaylanmadı. Yeniden deneyin."
+
+msgid "Enter your password"
+msgstr "Parolanızı girin"
+
+msgid "Password"
+msgstr "Parola"
+
+msgid "Too many attempts. Enter your password again."
+msgstr "Çok fazla deneme. Parolanızı yeniden girin."
+
+msgid "Try again. Enter your password."
+msgstr "Yeniden deneyin. Parolanızı girin."
+
+msgid "Authentication complete"
+msgstr "Kimlik doğrulama tamamlandı"

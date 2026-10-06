@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generic hardware-wallet silhouette (screen, two buttons, USB-C) drawn for this
+     project; not the Trezor logo. Symbolic: the shell recolors the fill. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <path fill="#2e3436" fill-rule="evenodd" d="M5.5 1h5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zM5.25 3.25v4.5h5.5v-4.5zM7.4 10.25a0.9 0.9 0 1 1-1.8 0a0.9 0.9 0 1 1 1.8 0zM10.4 10.25a0.9 0.9 0 1 1-1.8 0a0.9 0.9 0 1 1 1.8 0zM6.75 13h2.5v2h-2.5z"/>
+</svg>
